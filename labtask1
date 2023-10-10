@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Define a struct to represent a student
+struct Student {
+    int id;
+    int semestersCompleted;
+    int creditsCompleted;
+    float cgpa;
+};
+
+int main() {
+    // Create an array to store information for 15 students
+    vector<Student> students(15);
+
+    // Input information for each student
+    for (int i = 0; i < 15; i++) {
+        cout << "Enter information for student " << i + 1 << ":\n";
+        cout << "Unique ID: ";
+        cin >> students[i].id;
+        cout << "Number of semesters completed: ";
+        cin >> students[i].semestersCompleted;
+        cout << "Number of credits completed: ";
+        cin >> students[i].creditsCompleted;
+        cout << "CGPA: ";
+        cin >> students[i].cgpa;
+    }
+
+    // Print scholarship students (CGPA >= 3.75)
+    cout << "\nScholarship Students (CGPA >= 3.75):\n";
+    for (const Student& student : students) {
+        if (student.cgpa >= 3.75) {
+            cout << "Student ID: " << student.id << endl;
+        }
+    }
+
+    // Print students with more than 50 credits completed
+    cout << "\nStudents with more than 50 credits completed:\n";
+    for (const Student& student : students) {
+        if (student.creditsCompleted > 50) {
+            cout << "Student ID: " << student.id << endl;
+        }
+    }
+
+    // Print students with at least 2 semesters and 28 credits completed
+    cout << "\nStudents with at least 2 semesters and 28 credits completed:\n";
+    for (const Student& student : students) {
+        if (student.semestersCompleted >= 2 && student.creditsCompleted >= 28) {
+            cout << "Student ID: " << student.id << endl;
+        }
+    }
+
+    return 0;
+}
