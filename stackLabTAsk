@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+const int MAX_SIZE = 100;
+
+class Stack {
+    private:
+    int top;
+    int stackArray[MAX_SIZE];
+    
+    public:
+    Stack() {
+        top = -1;
+        
+    }
+    bool isEmpty(){
+        return top == -1;
+    }
+    void show_top(){
+        if (!isEmpty()) {
+            cout<<"Top element: "<< stackArray[top]<< endl;
+        }
+        else{
+            cout<< "Stack is empty"<<endl;
+        }
+    }
+
+void push(int value){
+    if(top < MAX_SIZE -1){
+        stackArray[++top] = value;
+        cout<<"Pushed"<<value<<"to the stack"<<endl;
+    }
+    else{
+        cout<<"Stack is full.Can't push."<<endl;
+    }
+}
+void pop(){
+    if(!isEmpty()){
+        cout<<"popped"<< " "<<stackArray[top]<<"from the stack"<<endl;
+        top--;
+    }
+    else{
+        cout<<"Stack is empty,can't pop"<<endl;
+    }
+}
+void display(){
+    if(!isEmpty()){
+        cout<<"Stack elements : ";
+        for(int i = 0;i <= top;i++){
+            cout<< stackArray[i]<< " ";
+        }
+        cout<<endl;
+    }
+    else{
+        cout<<"Stack is empty"<<endl;
+    }
+}
+};
+
+int main(){
+    Stack myStack;
+    myStack.push(10);
+    myStack.push(40);
+    myStack.push(60);
+    
+    myStack.display();
+    myStack.show_top();
+    
+    myStack.pop();
+    myStack.display();
+    
+    myStack.pop();
+    myStack.pop();
+    
+    return 0;
+}
+    
+    
+    
+    
+    
