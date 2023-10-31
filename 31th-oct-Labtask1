@@ -1,0 +1,35 @@
+#include <iostream>
+
+
+int main() {
+    
+    int arr[10];
+
+    
+    for (int i = 0; i < 10; i++) {
+        std::cout << "Enter element " << i + 1 << ": ";
+        std::cin >> arr[i];
+    }
+
+    
+    int closestSum = arr[0] + arr[1];
+    int element1 = arr[0];
+    int element2 = arr[1];
+
+  
+    for (int i = 0; i < 10; i++) {
+        for (int j = i + 1; j < 10; j++) {
+            int currentSum = arr[i] + arr[j];
+            if (std::abs(currentSum) < std::abs(closestSum)) {
+                closestSum = currentSum;
+                element1 = arr[i];
+                element2 = arr[j];
+            }
+        }
+    }
+
+   
+    std::cout << "Elements with the closest sum to zero: " << element1 << " and " << element2 << std::endl;
+
+    return 0;
+}
