@@ -1,0 +1,94 @@
+#include <iostream>
+
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+    
+    
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+
+class DoublyLinkedList {
+private:
+    Node* head;
+
+public:
+   
+    DoublyLinkedList() : head(nullptr) {}
+
+   
+    void insertAtFront(int val) {
+       
+        Node* newNode = new Node(val);
+
+        
+        newNode->next = head;
+        newNode->prev = nullptr;
+
+        
+        if (head != nullptr) {
+            head->prev = newNode;
+        }
+
+       
+        head = newNode;
+    }
+
+   
+    void deleteFront() {
+       
+        if (head == nullptr) {
+            std::cout << "List is empty. Cannot delete front.\n";
+            return;
+        }
+
+       
+        Node* temp = head;
+
+       
+        head = head->next;
+
+        
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
+
+       
+        delete temp;
+    }
+
+    
+    void display() {
+        Node* current = head;
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << "\n";
+    }
+};
+
+int main() {
+    DoublyLinkedList myList;
+
+    
+    myList.insertAtFront(3);
+    myList.insertAtFront(2);
+    myList.insertAtFront(1);
+
+   
+    std::cout << "Original list: ";
+    myList.display();
+
+    
+    myList.deleteFront();
+
+  
+    std::cout << "List after deleting front node: ";
+    myList.display();
+
+    return 0;
+}
