@@ -1,0 +1,88 @@
+#include <iostream>
+
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+    
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
+};
+
+
+void insertAfter(Node* prevNode, int newData) {
+    if (prevNode == nullptr) {
+        std::cout << "Previous node cannot be null." << std::endl;
+        return;
+    }
+
+    
+    Node* newNode = new Node(newData);
+
+    
+    newNode->prev = prevNode;
+    newNode->next = prevNode->next;
+    if (prevNode->next != nullptr) {
+        prevNode->next->prev = newNode;
+    }
+    prevNode->next = newNode;
+}
+
+
+void deleteNode(Node* delNode) {
+    if (delNode == nullptr) {
+        std::cout << "Node to be deleted cannot be null." << std::endl;
+        return;
+    }
+
+    
+    if (delNode->prev != nullptr) {
+        delNode->prev->next = delNode->next;
+    }
+    if (delNode->next != nullptr) {
+        delNode->next->prev = delNode->prev;
+    }
+
+    
+    delete delNode;
+}
+
+
+void displayList(Node* head) {
+    while (head != nullptr) {
+        std::cout << head->data << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    
+    Node* head = new Node(1);
+    Node* second = new Node(2);
+    Node* third = new Node(3);
+
+    head->next = second;
+    second->prev = head;
+    second->next = third;
+    third->prev = second;
+
+    std::cout << "Original doubly linked list: ";
+    displayList(head);
+
+    
+    insertAfter(second, 4);
+    std::cout << "Doubly linked list after insertion: ";
+    displayList(head);
+
+    
+    deleteNode(second);
+    std::cout << "Doubly linked list after deletion: ";
+    displayList(head);
+
+    
+    delete head;
+    delete third;
+
+    return 0;
+}
