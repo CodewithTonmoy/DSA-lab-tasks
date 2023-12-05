@@ -1,88 +1,95 @@
 #include <iostream>
+using namespace std;
 
+int n = 5;
+int queue [5];
+int front = -1;
+int rear = -1;
 
-struct Node {
-    int data;
-    Node* prev;
-    Node* next;
-    
-    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
-};
+void enqueue (int x){
+if((rear+1)%n==front){
+    cout<<"Overflow"<<endl;
+}
 
+else if (front == -1 && rear == -1){
+    front = rear = 0;
+    queue[rear]= x;
+}
+else{
+    rear=(rear+1)%n;
+    queue[rear]=x;
 
-void insertAfter(Node* prevNode, int newData) {
-    if (prevNode == nullptr) {
-        std::cout << "Previous node cannot be null." << std::endl;
-        return;
-    }
+}
+}
+void dequeue (){
+if (front == -1 && rear == -1){
+    cout<< " Underflow " <<endl;
+}
 
-    
-    Node* newNode = new Node(newData);
+else if (front ==rear){
 
-    
-    newNode->prev = prevNode;
-    newNode->next = prevNode->next;
-    if (prevNode->next != nullptr) {
-        prevNode->next->prev = newNode;
-    }
-    prevNode->next = newNode;
+    front = rear = -1;
+}
+else{
+
+ front= (front+1)%n;
+}
 }
 
 
-void deleteNode(Node* delNode) {
-    if (delNode == nullptr) {
-        std::cout << "Node to be deleted cannot be null." << std::endl;
-        return;
+void display(){
+    int i = front;
+if (front == -1 && rear == -1){
+    cout<<"Empty"<<endl;
+}
+else{
+    while (i != rear ){
+        cout<<queue[i]<< endl;
+        i = (i+1)%n;
     }
-
-    
-    if (delNode->prev != nullptr) {
-        delNode->prev->next = delNode->next;
-    }
-    if (delNode->next != nullptr) {
-        delNode->next->prev = delNode->prev;
-    }
-
-    
-    delete delNode;
+    cout<<queue[rear]<<endl;
+}
 }
 
-
-void displayList(Node* head) {
-    while (head != nullptr) {
-        std::cout << head->data << " ";
-        head = head->next;
-    }
-    std::cout << std::endl;
-}
 
 int main() {
-    
-    Node* head = new Node(1);
-    Node* second = new Node(2);
-    Node* third = new Node(3);
 
-    head->next = second;
-    second->prev = head;
-    second->next = third;
-    third->prev = second;
+enqueue (1);
+enqueue (2);
+enqueue (3);
+enqueue (4);
+enqueue (5);
 
-    std::cout << "Original doubly linked list: ";
-    displayList(head);
+cout << "Enqueue values are : "<<endl;
+display();
+cout << endl;
 
-    
-    insertAfter(second, 4);
-    std::cout << "Doubly linked list after insertion: ";
-    displayList(head);
+dequeue ();
+dequeue ();
 
-    
-    deleteNode(second);
-    std::cout << "Doubly linked list after deletion: ";
-    displayList(head);
+cout << "After Dequeue Enqueue values are : "<<endl;
+display();
+cout << endl;
 
-    
-    delete head;
-    delete third;
+enqueue (6);
+enqueue (7);
 
-    return 0;
+cout << "Enqueue values as circular way  : "<<endl;
+display();
+cout << endl;
+
+dequeue ();
+dequeue ();
+dequeue ();
+dequeue ();
+
+cout << "Denqueue values as circular way  : "<<endl;
+
+display();
+cout << endl;
+
+
+
+
+
 }
