@@ -1,94 +1,95 @@
 #include <iostream>
+using namespace std;
+
+int n = 5;
+int queue [5];
+int front = -1;
+int rear = -1;
+
+void enqueue (int x){
+if((rear+1)%n==front){
+    cout<<"Overflow"<<endl;
+}
+
+else if (front == -1 && rear == -1){
+    front = rear = 0;
+    queue[rear]= x;
+}
+else{
+    rear=(rear+1)%n;
+    queue[rear]=x;
+
+}
+}
+void dequeue (){
+if (front == -1 && rear == -1){
+    cout<< " Underflow " <<endl;
+}
+
+else if (front ==rear){
+
+    front = rear = -1;
+}
+else{
+
+ front= (front+1)%n;
+}
+}
 
 
-struct Node {
-    int data;
-    Node* prev;
-    Node* next;
-    
-    
-    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
-};
-
-
-class DoublyLinkedList {
-private:
-    Node* head;
-
-public:
-   
-    DoublyLinkedList() : head(nullptr) {}
-
-   
-    void insertAtFront(int val) {
-       
-        Node* newNode = new Node(val);
-
-        
-        newNode->next = head;
-        newNode->prev = nullptr;
-
-        
-        if (head != nullptr) {
-            head->prev = newNode;
-        }
-
-       
-        head = newNode;
+void display(){
+    int i = front;
+if (front == -1 && rear == -1){
+    cout<<"Empty"<<endl;
+}
+else{
+    while (i != rear ){
+        cout<<queue[i]<< endl;
+        i = (i+1)%n;
     }
+    cout<<queue[rear]<<endl;
+}
+}
 
-   
-    void deleteFront() {
-       
-        if (head == nullptr) {
-            std::cout << "List is empty. Cannot delete front.\n";
-            return;
-        }
-
-       
-        Node* temp = head;
-
-       
-        head = head->next;
-
-        
-        if (head != nullptr) {
-            head->prev = nullptr;
-        }
-
-       
-        delete temp;
-    }
-
-    
-    void display() {
-        Node* current = head;
-        while (current != nullptr) {
-            std::cout << current->data << " ";
-            current = current->next;
-        }
-        std::cout << "\n";
-    }
-};
 
 int main() {
-    DoublyLinkedList myList;
 
-    
-    myList.insertAtFront(3);
-    myList.insertAtFront(2);
-    myList.insertAtFront(1);
+enqueue (1);
+enqueue (2);
+enqueue (3);
+enqueue (4);
+enqueue (5);
 
-   
-    std::cout << "Original list: ";
-    myList.display();
+cout << "Enqueue values are : "<<endl;
+display();
+cout << endl;
 
-    
-    myList.deleteFront();
+dequeue ();
+dequeue ();
 
-  
-    std::cout << "List after deleting front node: ";
-    myList.display();
+cout << "After Dequeue Enqueue values are : "<<endl;
+display();
+cout << endl;
 
-    return 0;
+enqueue (6);
+enqueue (7);
+
+cout << "Enqueue values as circular way  : "<<endl;
+display();
+cout << endl;
+
+dequeue ();
+dequeue ();
+dequeue ();
+dequeue ();
+
+cout << "Denqueue values as circular way  : "<<endl;
+
+display();
+cout << endl;
+
+
+
+
+
 }
